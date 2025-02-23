@@ -1,0 +1,22 @@
+{
+  "name": "uniapp-video-player",
+  "version": "1.0.0",
+  "main": "index.js",
+  "module": "index.js",
+  "description": "A video player component for UniApp projects, exclusively supporting the App-Vue environment.",
+  "keywords": ["video player", "renderjs video", "uniapp video player", "uniapp", "dom video player", "app-vue video player", "dom-video-player", "DomVideoPlayer", "uni-app video player", "liusheng"],
+  "homepage": "https://github.com/liusheng22/uniapp-video-player#readme",
+  "author": {
+    "name": "liusheng",
+    "email": "black.liusheng@gmail.com",
+    "url": "https://github.com/liusheng22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liusheng22/uniapp-video-player.git"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.0 || ^3.0.0"
+  },
+  "license": "MIT"
+}
