@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/liusheng22/uniapp-video-player.git"
+    "url": "git+https://github.com/liusheng22/uniapp-video-player.git"
   },
   "peerDependencies": {
     "vue": "^2.6.0 || ^3.0.0"
