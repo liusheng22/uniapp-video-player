@@ -44,11 +44,13 @@ export default {
 | src | String | - | 必填 视频地址 | 
 | autoplay | Boolean | false | 是否自动播放 | 
 | controls | Boolean | false | 是否显示原生控制条 |
+| controlsList | String | '' | nodownload/nofullscreen/noremoteplayback |
 | loop | Boolean | false | 是否循环播放 |
 | muted | Boolean | false | 是否静音播放 |
 | objectFit | String | 'contain'| 视频填充模式 (contain/cover) |
 | poster | String | - | 视频封面图地址 |
 | isLoading | Boolean | false | 遮挡安卓默认黑色播放按钮 |
+| isLog | Boolean | true | 是否打印组件日志 |
 
 ### 事件列表
 | 事件名 | 类型 | 说明 | 回调参数 |
