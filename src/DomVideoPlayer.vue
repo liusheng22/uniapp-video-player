@@ -36,6 +36,10 @@ export default {
       type: Boolean,
       default: false
     },
+    controlsList: {
+      type: String,
+      default: ''
+    },
     objectFit: {
       type: String,
       default: 'contain'
@@ -55,6 +59,10 @@ export default {
     poster: {
       type: String,
       default: ''
+    },
+    isLog: {
+      type: Boolean,
+      default: true
     },
     id: {
       type: String,
@@ -78,6 +86,11 @@ export default {
       playing: false
     }
   },
+  mounted() {
+    // #ifdef H5
+    this.isLog && console.warn('uniapp-video-player: 温馨提示，H5端建议使用原生HTML video标签效果更佳')
+    // #endif
+  },
   watch: {
     // 监听视频资源地址更新
     src: {
@@ -100,6 +113,7 @@ export default {
         autoplay: this.autoplay,
         muted: this.muted,
         controls: this.controls,
+        controlsList: this.controlsList,
         loop: this.loop,
         objectFit: this.objectFit,
         poster: this.poster,
@@ -210,7 +224,7 @@ export default {
       // 开始监听视频相关事件
       this.listenVideoEvent()
 
-      const { autoplay, muted, controls, loop, playbackRate, objectFit, poster } = this.renderProps
+      const { autoplay, muted, controls, controlsList, loop, playbackRate, objectFit, poster } = this.renderProps
       videoEl.src = src
       videoEl.autoplay = autoplay
       videoEl.controls = controls
@@ -222,8 +236,8 @@ export default {
       videoEl.setAttribute('preload', 'auto')
       videoEl.setAttribute('playsinline', true)
       videoEl.setAttribute('webkit-playsinline', true)
-      videoEl.setAttribute('crossorigin', 'anonymous')
-      videoEl.setAttribute('controlslist', 'nodownload')
+      // videoEl.setAttribute('crossorigin', 'anonymous')
+      controlsList && videoEl.setAttribute('controlslist', controlsList)
       videoEl.setAttribute('disablePictureInPicture', true)
       videoEl.style.objectFit = objectFit
       poster && (videoEl.poster = poster)
@@ -343,7 +357,10 @@ export default {
         if (this.loadingEl) {
           this.loadingEl.style.display = 'block'
         }
-        this.$ownerInstance.callMethod('eventEmit', { event: 'error' })
+        this.$ownerInstance.callMethod('eventEmit', {
+          event: 'error',
+          data: e
+        })
       }
       this.videoEl.removeEventListener('error', errorHandler)
       this.videoEl.addEventListener('error', errorHandler)
