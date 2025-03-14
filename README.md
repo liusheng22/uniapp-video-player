@@ -49,6 +49,8 @@ export default {
 | muted | Boolean | false | 是否静音播放 |
 | objectFit | String | 'contain'| 视频填充模式 (contain/cover) |
 | poster | String | - | 视频封面图地址 |
+| preload | String | 'auto' | 视频预加载模式 (auto/metadata/none) |
+| trackList | Array | [] | 视频字幕列表 |
 | isLoading | Boolean | false | 遮挡安卓默认黑色播放按钮 |
 | isLog | Boolean | true | 是否打印组件日志 |
 
@@ -116,7 +118,7 @@ methods: {
 
 ### 项目求赞
 如果本组件对您有帮助，请不要吝啬您的鼓励：
-- [👉 DCloud插件市场五星好评](https://ext.dcloud.net.cn/plugin?id=xxxxx)
+- [👉 DCloud插件市场五星好评](https://ext.dcloud.net.cn/plugin?id=19654)
 - [⭐ GitHub 给个星星⭐️](https://github.com/liusheng22/uniapp-video-player)
 
 

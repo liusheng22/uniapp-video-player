@@ -60,6 +60,15 @@ export default {
       type: String,
       default: ''
     },
+    preload: {
+      type: String,
+      default: 'auto'
+    },
+    // https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/track
+    trackList: {
+      type: Array,
+      default: () => []
+    },
     isLog: {
       type: Boolean,
       default: true
@@ -118,7 +127,8 @@ export default {
         objectFit: this.objectFit,
         poster: this.poster,
         isLoading: this.isLoading,
-        playbackRate: this.playbackRate
+        playbackRate: this.playbackRate,
+        trackList: this.trackList
       }
     }
   },
@@ -224,7 +234,7 @@ export default {
       // 开始监听视频相关事件
       this.listenVideoEvent()
 
-      const { autoplay, muted, controls, controlsList, loop, playbackRate, objectFit, poster } = this.renderProps
+      const { autoplay, muted, controls, controlsList, loop, playbackRate, objectFit, poster, preload } = this.renderProps
       videoEl.src = src
       videoEl.autoplay = autoplay
       videoEl.controls = controls
@@ -233,7 +243,7 @@ export default {
       videoEl.playbackRate = playbackRate
       videoEl.id = this.playerId
       // videoEl.setAttribute('x5-video-player-type', 'h5')
-      videoEl.setAttribute('preload', 'auto')
+      videoEl.setAttribute('preload', preload)
       videoEl.setAttribute('playsinline', true)
       videoEl.setAttribute('webkit-playsinline', true)
       // videoEl.setAttribute('crossorigin', 'anonymous')
@@ -245,12 +255,36 @@ export default {
       videoEl.style.height = '100%'
 
       // 插入视频元素
-      // document.getElementById(this.wrapperId).appendChild(videoEl)
       const playerWrapper = document.getElementById(this.wrapperId)
       playerWrapper.insertBefore(videoEl, playerWrapper.firstChild)
 
+      // 创建字幕
+      this.createTrack()
+
       // 插入loading 元素（遮挡安卓的默认加载过程中的黑色播放按钮）
       this.createLoading()
+    },
+    // 创建视频字幕
+    createTrack() {
+      // 移除掉之前的字幕
+      const tracks = this.videoEl.querySelectorAll('track')
+      tracks.forEach((track) => {
+        this.videoEl.removeChild(track)
+      })
+
+      // 创建新的字幕
+      const { trackList } = this.renderProps
+      if (!trackList.length) return
+      trackList.forEach((item) => {
+        const { src, kind, label, srclang, default: isDefault } = item
+        const trackEl = document.createElement('track')
+        trackEl.kind = kind
+        trackEl.label = label
+        trackEl.srclang = srclang
+        trackEl.default = isDefault
+        trackEl.src = src
+        this.videoEl.appendChild(trackEl)
+      })
     },
     // 创建 loading
     createLoading() {
@@ -534,6 +568,7 @@ export default {
         this.videoEl.loop = loop
         this.videoEl.muted = muted
         this.videoEl.playbackRate = playbackRate
+        this.createTrack()
       }
     },
     randomNumChange(val) {

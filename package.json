@@ -1,6 +1,6 @@
 {
   "name": "uniapp-video-player",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "index.js",
   "module": "index.js",
   "description": "用于 uni-app 的高自由度视频播放器",
